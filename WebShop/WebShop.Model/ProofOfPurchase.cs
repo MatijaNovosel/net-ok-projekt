@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vjezba.Model
 {
-    public class Tag
+    public class ProofOfPurchase
     {
-        public Tag()
+        public ProofOfPurchase()
         {
             Items = new HashSet<Item>();
         }
@@ -15,6 +15,8 @@ namespace Vjezba.Model
         public int Id { get; set; }
         [Required]
         public string Description { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public virtual ICollection<Item> Items { get; set; }
     }
 }

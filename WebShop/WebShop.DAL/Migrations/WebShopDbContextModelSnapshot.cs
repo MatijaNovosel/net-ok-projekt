@@ -18,6 +18,21 @@ namespace WebShop.DAL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ItemProofOfPurchase", b =>
+                {
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProofsOfPurchaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ItemsId", "ProofsOfPurchaseId");
+
+                    b.HasIndex("ProofsOfPurchaseId");
+
+                    b.ToTable("ItemProofOfPurchase");
+                });
+
             modelBuilder.Entity("ItemTag", b =>
                 {
                     b.Property<int>("ItemsId")
@@ -56,11 +71,18 @@ namespace WebShop.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -70,8 +92,32 @@ namespace WebShop.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Monitor 1"
+                            Description = "Monitor 1 description",
+                            Discount = 0.0,
+                            Name = "Monitor 1",
+                            Price = 2000.5
                         });
+                });
+
+            modelBuilder.Entity("Vjezba.Model.ProofOfPurchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ProofOfPurchase");
                 });
 
             modelBuilder.Entity("Vjezba.Model.Role", b =>
@@ -123,6 +169,21 @@ namespace WebShop.DAL.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ItemProofOfPurchase", b =>
+                {
+                    b.HasOne("Vjezba.Model.Item", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Vjezba.Model.ProofOfPurchase", null)
+                        .WithMany()
+                        .HasForeignKey("ProofsOfPurchaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ItemTag", b =>
                 {
                     b.HasOne("Vjezba.Model.Item", null)
@@ -151,6 +212,22 @@ namespace WebShop.DAL.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Vjezba.Model.ProofOfPurchase", b =>
+                {
+                    b.HasOne("Vjezba.Model.User", "User")
+                        .WithMany("ProofsOfPurchase")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Vjezba.Model.User", b =>
+                {
+                    b.Navigation("ProofsOfPurchase");
                 });
 #pragma warning restore 612, 618
         }

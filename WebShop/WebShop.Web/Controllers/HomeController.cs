@@ -5,22 +5,28 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Vjezba.DAL;
 using WebShop.Models;
+using WebShop.Web.ViewModels;
 
 namespace WebShop.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private WebShopDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, WebShopDbContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomeViewModel hmv = new HomeViewModel();
+            hmv.Items = _dbContext.Items.ToList();
+            return View(hmv);
         }
 
         public IActionResult Privacy()

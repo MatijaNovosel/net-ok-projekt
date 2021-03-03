@@ -13,7 +13,9 @@ namespace WebShop.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,6 +87,26 @@ namespace WebShop.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProofOfPurchase",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProofOfPurchase", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProofOfPurchase_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoleUser",
                 columns: table => new
                 {
@@ -108,10 +130,49 @@ namespace WebShop.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ItemProofOfPurchase",
+                columns: table => new
+                {
+                    ItemsId = table.Column<int>(type: "int", nullable: false),
+                    ProofsOfPurchaseId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemProofOfPurchase", x => new { x.ItemsId, x.ProofsOfPurchaseId });
+                    table.ForeignKey(
+                        name: "FK_ItemProofOfPurchase_Items_ItemsId",
+                        column: x => x.ItemsId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItemProofOfPurchase_ProofOfPurchase_ProofsOfPurchaseId",
+                        column: x => x.ProofsOfPurchaseId,
+                        principalTable: "ProofOfPurchase",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "Description", "Discount", "Name", "Price" },
+                values: new object[] { 1, "Monitor 1 description", 0.0, "Monitor 1", 2000.5 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemProofOfPurchase_ProofsOfPurchaseId",
+                table: "ItemProofOfPurchase",
+                column: "ProofsOfPurchaseId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ItemTag_TagsId",
                 table: "ItemTag",
                 column: "TagsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProofOfPurchase_UserId",
+                table: "ProofOfPurchase",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleUser_UsersId",
@@ -122,10 +183,16 @@ namespace WebShop.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ItemProofOfPurchase");
+
+            migrationBuilder.DropTable(
                 name: "ItemTag");
 
             migrationBuilder.DropTable(
                 name: "RoleUser");
+
+            migrationBuilder.DropTable(
+                name: "ProofOfPurchase");
 
             migrationBuilder.DropTable(
                 name: "Items");

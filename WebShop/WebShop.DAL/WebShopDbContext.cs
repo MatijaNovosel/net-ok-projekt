@@ -16,7 +16,15 @@ namespace Vjezba.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Item>().HasData(new Item { Id = 1, Name = "Monitor 1" });
+            modelBuilder.Entity<Item>().HasData(
+                new Item
+                {
+                    Id = 1,
+                    Name = "Monitor 1",
+                    Description = "Monitor 1 description",
+                    Price = 2000.5
+                }
+            );
         }
     }
 }

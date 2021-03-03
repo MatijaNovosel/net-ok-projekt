@@ -23,10 +23,10 @@ namespace WebShop.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             HomeViewModel hmv = new HomeViewModel();
-            hmv.Items = _dbContext.Items.Include(x => x.Tags).ToList();
+            hmv.Items = await _dbContext.Items.Include(x => x.Tags).ToListAsync();
             return View(hmv);
         }
 

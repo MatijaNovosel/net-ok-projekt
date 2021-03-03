@@ -28,7 +28,7 @@ namespace WebShop.Web.TagHelpers
             return $@"
                 <h5 class='align-self-start'>{Item.Name}</h5>
                 <span class='align-self-start'>{Item.Description}</span>
-                <span class='align-self-start'>{Item.Price - Item.Price * Item.Discount} HRK</span>
+                <span class='align-self-start'>{Item.Price - Item.Price * Item.Discount / 100} HRK</span>
             ";
         }
     }

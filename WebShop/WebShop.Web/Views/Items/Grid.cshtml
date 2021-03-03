@@ -1,0 +1,15 @@
+﻿@model WebShop.Web.ViewModels.ItemsGridViewModel
+
+@{
+    ViewData["Title"] = "Our merchandise";
+}
+
+<h3 class="text-center my-5">Our merchandise</h3>
+<div class="grid-cols grid container">
+    @foreach (var item in Model.Items)
+    {
+        <item-card item="@item">
+            <tag-pill-collection text-collection="item.Tags.Select(x => x.Description).ToList()"></tag-pill-collection>
+        </item-card>
+    }
+</div>

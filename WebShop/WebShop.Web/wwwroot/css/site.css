@@ -110,3 +110,9 @@ body {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 }
+
+.hero-graphics-card {
+    background-image: url("https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/ampere/rtx-3070/geforce-rtx-3070-hero-background-image-spec2-bb770_550-d@2x.jpg");
+    background-size: cover;
+    height: 700px;
+}

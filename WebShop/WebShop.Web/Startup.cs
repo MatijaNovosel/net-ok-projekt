@@ -27,6 +27,10 @@ namespace WebShop
         {
             services.AddDbContext<WebShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WebShopDbContext")));
             services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -47,14 +51,14 @@ namespace WebShop
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "ItemDetails", 
-                    pattern: "Items/{id}", 
-                    constraints: new { id = @"[0-9]+" }, 
-                    defaults: new 
-                    { 
+                    name: "ItemDetails",
+                    pattern: "Items/{id}",
+                    constraints: new { id = @"[0-9]+" },
+                    defaults: new
+                    {
                         controller = "Items",
                         action = "Details"
-                    } 
+                    }
                 );
                 endpoints.MapControllerRoute(
                     name: "default",

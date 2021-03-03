@@ -23,6 +23,41 @@ namespace Vjezba.DAL
                     Name = "Monitor 1",
                     Description = "Monitor 1 description",
                     Price = 2000.5
+                },
+                new Item
+                {
+                    Id = 2,
+                    Name = "Monitor 2",
+                    Description = "Monitor 2 description",
+                    Price = 2500.5
+                },
+                new Item
+                {
+                    Id = 3,
+                    Name = "Monitor 3",
+                    Description = "Monitor 3 description",
+                    Price = 1060.5
+                },
+                new Item
+                {
+                    Id = 4,
+                    Name = "Monitor 4",
+                    Description = "Monitor 4 description",
+                    Price = 1006.5
+                },
+                new Item
+                {
+                    Id = 5,
+                    Name = "Monitor 5",
+                    Description = "Monitor 5 description",
+                    Price = 5000.5
+                },
+                new Item
+                {
+                    Id = 6,
+                    Name = "Monitor 6",
+                    Description = "Monitor 6 description",
+                    Price = 1020.5
                 }
             );
         }

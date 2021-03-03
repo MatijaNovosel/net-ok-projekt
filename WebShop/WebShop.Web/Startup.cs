@@ -47,6 +47,16 @@ namespace WebShop
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "ItemDetails", 
+                    pattern: "Items/{id}", 
+                    constraints: new { id = @"[0-9]+" }, 
+                    defaults: new 
+                    { 
+                        controller = "Items",
+                        action = "Details"
+                    } 
+                );
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

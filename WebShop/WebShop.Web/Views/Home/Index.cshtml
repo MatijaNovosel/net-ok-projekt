@@ -1,13 +1,13 @@
 ﻿@model WebShop.Web.ViewModels.HomeViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    @foreach(var item in Model.Items)
+<h3 class="text-center">We have the best discounts and merchandise!</h3>
+<div class="grid-cols grid mt-4">
+    @foreach (var item in Model.Items)
     {
-        @item.Name
+        <item-card item="@item"> </item-card>
     }
 </div>

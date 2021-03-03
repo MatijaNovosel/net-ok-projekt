@@ -18,6 +18,7 @@ namespace WebShop.Web.TagHelpers
         {
             output.TagName = "div";
             output.Attributes.Add("class", "item-card shadow-sm border-shaded rounded-lg d-flex flex-column align-items-center shrink cursor-pointer select-none");
+            output.Attributes.Add("id", Item.Id);
             output.PreContent.SetHtmlContent(Content());
             output.Content.SetHtmlContent(await output.GetChildContentAsync());
         }

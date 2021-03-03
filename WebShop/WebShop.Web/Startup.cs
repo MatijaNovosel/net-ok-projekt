@@ -25,7 +25,7 @@ namespace WebShop
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ClientManagerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ClientManagerDbContext")));
+            services.AddDbContext<WebShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WebShopDbContext")));
             services.AddControllersWithViews();
         }
 

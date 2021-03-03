@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vjezba.DAL\Vjezba.DAL.csproj" />
-    <ProjectReference Include="..\Vjezba.Model\Vjezba.Model.csproj" />
+    <ProjectReference Include="..\WebShop.DAL\WebShop.DAL.csproj" />
+    <ProjectReference Include="..\WebShop.Model\WebShop.Model.csproj" />
   </ItemGroup>
 
 </Project>

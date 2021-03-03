@@ -102,6 +102,7 @@ body {
 .item-card {
     padding: 2em;
     background-color: white;
+    border-top: 12px solid #3399ff;
 }
 
 @media only screen and (max-width: 768px) {

@@ -105,13 +105,10 @@ namespace WebShop.Web.Controllers
             }
             return View(item);
         }
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
             var item = await _context.Items
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
@@ -119,16 +116,9 @@ namespace WebShop.Web.Controllers
                 return NotFound();
             }
 
-            return View(item);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var item = await _context.Items.FindAsync(id);
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 

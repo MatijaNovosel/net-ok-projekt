@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace WebShop.Controllers
         public IActionResult Index()
         {
             HomeViewModel hmv = new HomeViewModel();
-            hmv.Items = _dbContext.Items.ToList();
+            hmv.Items = _dbContext.Items.Include(x => x.Tags).ToList();
             return View(hmv);
         }
 

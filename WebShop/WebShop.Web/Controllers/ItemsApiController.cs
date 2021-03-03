@@ -67,8 +67,15 @@ namespace WebShop.Web.Controllers
                 return NotFound();
             }
 
-            Item foundItem = await _context.Items.FirstOrDefaultAsync(x => x.Id == item.Id);
+            Item foundItem = await _context.Items.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == item.Id);
             _context.Entry(foundItem).CurrentValues.SetValues(item);
+
+            foundItem.Tags = new List<Tag>();
+
+            foreach (var tagId in item.TagIds)
+            {
+                foundItem.Tags.Add(_context.Tags.FirstOrDefault(x => x.Id == tagId));
+            }
 
             await _context.SaveChangesAsync();
 

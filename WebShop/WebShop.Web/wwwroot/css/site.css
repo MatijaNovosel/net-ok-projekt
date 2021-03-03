@@ -8,6 +8,22 @@ a {
   color: #0366d6;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.shrink {
+    transition: all .2s ease-in-out;
+}
+
+.select-none {
+    user-select: none;
+}
+
+.shrink:hover {
+    transform: scale(0.95);
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
@@ -22,6 +38,11 @@ a {
 
 html {
   font-size: 14px;
+}
+
+.pill-bg {
+    background-color: grey;
+    color: white;
 }
 
 @media (min-width: 768px) {

@@ -8,6 +8,8 @@
 <div class="grid-cols grid mt-4">
     @foreach (var item in Model.Items)
     {
-        <item-card item="@item"> </item-card>
+        <item-card item="@item">
+            <tag-pill-collection text-collection="item.Tags.Select(x => x.Description).ToList()"></tag-pill-collection>
+        </item-card>
     }
 </div>

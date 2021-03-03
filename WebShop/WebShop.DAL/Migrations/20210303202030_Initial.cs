@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebShop.DAL.Migrations
 {
@@ -15,6 +16,7 @@ namespace WebShop.DAL.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
+                    MadeAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Discount = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
@@ -153,11 +155,6 @@ namespace WebShop.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Items",
-                columns: new[] { "Id", "Description", "Discount", "Name", "Price" },
-                values: new object[] { 1, "Monitor 1 description", 0.0, "Monitor 1", 2000.5 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemProofOfPurchase_ProofsOfPurchaseId",

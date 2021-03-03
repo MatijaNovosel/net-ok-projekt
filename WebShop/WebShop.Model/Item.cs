@@ -20,6 +20,8 @@ namespace Vjezba.Model
         public string Description { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
+        public DateTime MadeAt { get; set; }
         public double Discount { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<ProofOfPurchase> ProofsOfPurchase { get; set; }

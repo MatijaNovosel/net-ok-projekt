@@ -35,32 +35,6 @@ function searchItems() {
     });
 }
 
-function createNewItem() {
-    const payload = $('#createItemForm').serializeObject();
-    $.ajax({
-        url: "/Items/Create",
-        type: "POST",
-        data: payload
-    }).done(() => {
-        alert("Uspješno spremljeno!");
-    }).fail(() => {
-        alert("Došlo je do greške!");
-    });
-}
-
-function editItem() {
-    const payload = $('#editItemForm').serializeObject();
-    $.ajax({
-        url: "/Items/Edit",
-        type: "POST",
-        data: payload
-    }).done(() => {
-        alert("Uspješno spremljeno!");
-    }).fail(() => {
-        alert("Došlo je do greške!");
-    });
-}
-
 const deleteItem = (id) => {
     $.ajax({
         url: "/Items/Delete",

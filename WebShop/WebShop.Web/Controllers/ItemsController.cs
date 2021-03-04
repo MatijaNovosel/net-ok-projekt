@@ -63,7 +63,7 @@ namespace WebShop.Web.Controllers
             _context.Items.Add(newItem);
             await _context.SaveChangesAsync();
 
-            return new EmptyResult();
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -124,7 +124,7 @@ namespace WebShop.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateItemDto item)
+        public async Task<IActionResult> Edit([FromForm]UpdateItemDto item)
         {
             if (!ItemExists(item.Id))
             {
@@ -143,7 +143,7 @@ namespace WebShop.Web.Controllers
 
             await _context.SaveChangesAsync();
 
-            return new NoContentResult();
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]

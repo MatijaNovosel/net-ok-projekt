@@ -7,7 +7,7 @@
     <hr />
     <div class="row">
         <div class="col-12">
-            <form id="createItemForm" onsubmit="createNewItem()">
+            <form asp-controller="Items" asp-action="Create">
                 <partial name="_EditOrCreateItemForm" />
             </form>
         </div>
@@ -15,10 +15,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        document.getElementById("createItemForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-        }, true);
-    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

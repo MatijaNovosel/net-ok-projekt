@@ -1,2 +1,0 @@
-﻿dotnet ef migrations add Initial --startup-project WebShop.Web --context WebShopDbContext --project WebShop.DAL
-dotnet ef database update Initial --startup-project WebShop.Web --context WebShopDbContext --project WebShop.DAL

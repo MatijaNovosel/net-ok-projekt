@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebShop.DAL;
 using WebShop.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebShop.Web.Views
 {
+    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class TagsController : Controller
     {
         private readonly WebShopDbContext _context;

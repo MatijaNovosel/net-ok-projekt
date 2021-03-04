@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebShop.DAL;
 using WebShop.Model;
+using WebShop.Web.Services;
 
 namespace WebShop.Web
 {
@@ -30,7 +31,10 @@ namespace WebShop.Web
         {
             services.AddDbContext<WebShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WebShopDbContext")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedEmail = false)
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<WebShopDbContext>();
             services.AddControllersWithViews();
             services.AddAuthentication()
@@ -42,6 +46,8 @@ namespace WebShop.Web
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
+            services.AddHttpContextAccessor();
+            services.AddTransient<IsUserAdminService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

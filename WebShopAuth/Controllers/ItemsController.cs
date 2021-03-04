@@ -9,9 +9,11 @@ using WebShop.DAL;
 using WebShop.Model;
 using WebShop.Web.ViewModels;
 using WebShop.Web.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebShop.Web.Controllers
 {
+    [Authorize]
     public class ItemsController : Controller
     {
         private readonly WebShopDbContext _context;
@@ -21,6 +23,7 @@ namespace WebShop.Web.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Items.ToListAsync());
@@ -34,13 +37,17 @@ namespace WebShop.Web.Controllers
             return View(vm);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
-            CreateItemViewModel vm = new CreateItemViewModel();
-            vm.TagSelect = _context.Tags.Select(x => new SelectListItem { Selected = false, Text = x.Description, Value = x.Id.ToString() }).ToList();
+            CreateItemViewModel vm = new CreateItemViewModel
+            {
+                TagSelect = _context.Tags.Select(x => new SelectListItem { Selected = false, Text = x.Description, Value = x.Id.ToString() }).ToList()
+            };
             return View(vm);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] CreateItemDto item)
         {
@@ -86,6 +93,7 @@ namespace WebShop.Web.Controllers
             return View(item);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,6 +131,7 @@ namespace WebShop.Web.Controllers
             return View(vm);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit([FromForm]UpdateItemDto item)
         {
@@ -146,6 +155,7 @@ namespace WebShop.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

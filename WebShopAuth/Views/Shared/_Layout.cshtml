@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WebShop.Model
+@using WebShop.Web.Services
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
+@inject IsUserAdminService IsUserAdminService
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,12 +33,15 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Grid">Our merchandise</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Index">Items (Admin)</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Tags" asp-action="Index">Tags (Admin)</a>
-                            </li>
+                            @if (await IsUserAdminService.IsAdmin())
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="Index">Items (Admin)</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Tags" asp-action="Index">Tags (Admin)</a>
+                                </li>
+                            }
                         </ul>
                     }
                     <partial name="_LoginPartial" />

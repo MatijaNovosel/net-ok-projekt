@@ -1,4 +1,7 @@
-﻿@model WebShop.Model.Item
+﻿@using WebShop.Web.Services
+
+@model WebShop.Model.Item
+@inject IsUserAdminService IsUserAdminService
 
 @{
     ViewData["Title"] = "Details";
@@ -44,7 +47,10 @@
             }
         </dd>
     </dl>
-    <div>
-        <a class='btn btn-outline-primary' asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    </div>
+    @if (await IsUserAdminService.IsAdmin())
+    {
+        <div>
+            <a class='btn btn-outline-primary' asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        </div>
+    }
 </div>

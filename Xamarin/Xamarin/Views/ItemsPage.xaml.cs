@@ -19,7 +19,6 @@ namespace Xamarin.Views
         public ItemsPage()
         {
             InitializeComponent();
-
             BindingContext = _viewModel = new ItemsViewModel();
         }
 

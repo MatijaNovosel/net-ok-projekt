@@ -40,11 +40,8 @@ namespace WebShop.Web
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthNSection =
-                        Configuration.GetSection("Authentication:Google");
-
-                    options.ClientId = googleAuthNSection["ClientId"];
-                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                    options.ClientId = "105839799446-ute0k53tlchoiig0iirq44guujk84c86.apps.googleusercontent.com";
+                    options.ClientSecret = "tPFlWgMnvhmMlZs8mX0YO7zS";
                 });
             services.AddHttpContextAccessor();
             services.AddTransient<IsUserAdminService>();
@@ -52,16 +49,8 @@ namespace WebShop.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

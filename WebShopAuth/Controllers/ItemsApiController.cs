@@ -13,7 +13,6 @@ using WebShop.Web.Models.DTO;
 
 namespace WebShop.Web.Controllers
 {
-    [Authorize]
     [Route("/api/items")]
     [ApiController]
     public class ItemsApiController : ControllerBase

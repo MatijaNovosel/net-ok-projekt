@@ -30,9 +30,18 @@ namespace WebShop.Web
         {
             services.AddDbContext<WebShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WebShopDbContext")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedEmail = false)
                 .AddEntityFrameworkStores<WebShopDbContext>();
             services.AddControllersWithViews();
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

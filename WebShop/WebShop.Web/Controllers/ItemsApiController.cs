@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vjezba.DAL;
 using WebShop.Model;
+using WebShop.Web.Models;
 using WebShop.Web.Models.DTO;
 
 namespace WebShop.Web.Controllers
@@ -20,6 +21,25 @@ namespace WebShop.Web.Controllers
         public ItemsApiController(WebShopDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(string Name)
+        {
+            return await _context.Items.Include(x => x.Tags).Select(x => new ItemDto
+            {
+                Description = x.Description,
+                Discount = x.Discount,
+                Id = x.Id,
+                MadeAt = x.MadeAt,
+                Name = x.Name,
+                Price = x.Price,
+                Tags = x.Tags.Select(x => new TagDto() { Description = x.Description, Id = x.Id }).ToList()
+            })
+            .Where(x =>
+                (Name == null || x.Name.ToLower().StartsWith(Name.ToLower()))
+            )
+            .ToListAsync();
         }
 
         [HttpGet]

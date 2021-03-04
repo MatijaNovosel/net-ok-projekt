@@ -15,5 +15,10 @@
 </div>
 
 @section Scripts {
+    <script>
+        document.getElementById("editItemForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+        }, true);
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

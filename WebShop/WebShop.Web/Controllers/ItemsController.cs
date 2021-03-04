@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Vjezba.DAL;
 using WebShop.Model;
 using WebShop.Web.ViewModels;
+using WebShop.Web.Models.DTO;
 
 namespace WebShop.Web.Controllers
 {
@@ -35,31 +36,48 @@ namespace WebShop.Web.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            CreateItemViewModel vm = new CreateItemViewModel();
+            vm.TagSelect = _context.Tags.Select(x => new SelectListItem { Selected = false, Text = x.Description, Value = x.Id.ToString() }).ToList();
+            return View(vm);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,Discount")] Item item)
+        public async Task<IActionResult> Create([FromForm] CreateItemDto item)
         {
-            if (ModelState.IsValid)
+            Item newItem = new Item()
             {
-                _context.Add(item);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                Description = item.Description,
+                Discount = item.Discount,
+                MadeAt = item.MadeAt,
+                Name = item.Name,
+                Price = item.Price
+            };
+
+            newItem.Tags = new List<Tag>();
+
+            foreach (var tagId in item.TagIds)
+            {
+                newItem.Tags.Add(_context.Tags.FirstOrDefault(x => x.Id == tagId));
             }
-            return View(item);
+
+            _context.Items.Add(newItem);
+            await _context.SaveChangesAsync();
+
+            return new EmptyResult();
         }
 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var item = await _context.Items
+            var item = await _context
+                .Items
+                .Include(x => x.Tags)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (item == null)
             {
                 return NotFound();
@@ -75,44 +93,57 @@ namespace WebShop.Web.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Items.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == id);
+
             if (item == null)
             {
                 return NotFound();
             }
-            return View(item);
+
+            CreateItemViewModel vm = new CreateItemViewModel();
+
+            vm.Item = new UpdateItemDto()
+            {
+                Description = item.Description,
+                Discount = item.Discount,
+                Id = item.Id,
+                MadeAt = item.MadeAt,
+                Name = item.Name,
+                Price = item.Price,
+                TagIds = item.Tags.Select(x => x.Id).ToList()
+            };
+
+            vm.TagSelect = _context.Tags.Select(x => new SelectListItem
+            {
+                Selected = vm.Item.TagIds.Contains(x.Id),
+                Text = x.Description,
+                Value = x.Id.ToString()
+            }).ToList();
+
+            return View(vm);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,Discount")] Item item)
+        public async Task<IActionResult> Edit(UpdateItemDto item)
         {
-            if (id != item.Id)
+            if (!ItemExists(item.Id))
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            Item foundItem = await _context.Items.Include(x => x.Tags).FirstOrDefaultAsync(x => x.Id == item.Id);
+            _context.Entry(foundItem).CurrentValues.SetValues(item);
+
+            foundItem.Tags = new List<Tag>();
+
+            foreach (var tagId in item.TagIds)
             {
-                try
-                {
-                    _context.Update(item);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ItemExists(item.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                foundItem.Tags.Add(_context.Tags.FirstOrDefault(x => x.Id == tagId));
             }
-            return View(item);
+
+            await _context.SaveChangesAsync();
+
+            return new NoContentResult();
         }
 
         [HttpPost]
@@ -120,6 +151,7 @@ namespace WebShop.Web.Controllers
         {
             var item = await _context.Items
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (item == null)
             {
                 return NotFound();
@@ -131,8 +163,13 @@ namespace WebShop.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ItemExists(int id)
+        private bool ItemExists(int? id)
         {
+            if (id == null)
+            {
+                return false;
+            }
+
             return _context.Items.Any(e => e.Id == id);
         }
     }

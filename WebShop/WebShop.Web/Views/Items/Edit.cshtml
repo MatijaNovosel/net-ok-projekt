@@ -1,6 +1,4 @@
-﻿@model WebShop.Model.Item
-
-@{
+﻿@{
     ViewData["Title"] = "Edit";
 }
 
@@ -9,8 +7,7 @@
     <hr />
     <div class="row">
         <div class="col-12">
-            <form asp-action="Edit">
-                <input type="hidden" asp-for="Id" />
+            <form id="editItemForm" onsubmit="editItem()">
                 <partial name="_EditOrCreateItemForm" />
             </form>
         </div>

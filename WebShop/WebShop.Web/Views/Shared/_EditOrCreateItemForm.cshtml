@@ -1,26 +1,31 @@
-﻿@model WebShop.Model.Item
-
+﻿@model WebShop.Web.ViewModels.CreateItemViewModel
 
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<input hidden asp-for="Item.Id" name="Id" />
 <div class="form-group">
-    <label asp-for="Name" class="control-label"></label>
-    <input asp-for="Name" class="form-control" />
-    <span asp-validation-for="Name" class="text-danger"></span>
+    <label asp-for="Item.Name" class="control-label"></label>
+    <input name="Name" asp-for="Item.Name" class="form-control" />
+    <span asp-validation-for="Item.Name" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="Description" class="control-label"></label>
-    <input asp-for="Description" class="form-control" />
-    <span asp-validation-for="Description" class="text-danger"></span>
+    <label asp-for="Item.Description" class="control-label"></label>
+    <input name="Description" asp-for="Item.Description" class="form-control" />
+    <span asp-validation-for="Item.Description" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="Price" class="control-label"></label>
-    <input asp-for="Price" class="form-control" />
-    <span asp-validation-for="Price" class="text-danger"></span>
+    <label asp-for="Item.Price" class="control-label"></label>
+    <input name="Price" asp-for="Item.Price" class="form-control" />
+    <span asp-validation-for="Item.Price" class="text-danger"></span>
 </div>
 <div class="form-group">
-    <label asp-for="Discount" class="control-label"></label>
-    <input asp-for="Discount" class="form-control" />
-    <span asp-validation-for="Discount" class="text-danger"></span>
+    <label asp-for="Item.Discount" class="control-label"></label>
+    <input name="Discount" asp-for="Item.Discount" class="form-control" />
+    <span asp-validation-for="Item.Discount" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Item.TagIds" class="control-label"></label>
+    <select name="TagIds" multiple asp-for="Item.TagIds" asp-items="@Model.TagSelect" class="form-control"></select>
+    <span asp-validation-for="Item.TagIds" class="text-danger"></span>
 </div>
 <div class="form-group text-right">
     <input type="submit" value="Save" class="btn btn-primary" />

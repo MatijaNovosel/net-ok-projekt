@@ -1,15 +1,13 @@
-﻿@model WebShop.Model.Item
-
-@{
+﻿@{
     ViewData["Title"] = "Create";
 }
 
-<div class="container mt-2">
+<div class="container mt-4">
     <h4>New item</h4>
     <hr />
     <div class="row">
         <div class="col-12">
-            <form asp-action="Create">
+            <form id="createItemForm" onsubmit="createNewItem()">
                 <partial name="_EditOrCreateItemForm" />
             </form>
         </div>

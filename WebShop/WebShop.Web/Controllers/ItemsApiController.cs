@@ -124,7 +124,7 @@ namespace WebShop.Web.Controllers
             return NoContent();
         }
 
-        private bool ItemExists(int id)
+        private bool ItemExists(int? id)
         {
             return _context.Items.Any(e => e.Id == id);
         }

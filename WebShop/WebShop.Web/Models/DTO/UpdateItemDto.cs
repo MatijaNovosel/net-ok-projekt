@@ -7,6 +7,6 @@ namespace WebShop.Web.Models.DTO
 {
     public class UpdateItemDto : CreateItemDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
     }
 }

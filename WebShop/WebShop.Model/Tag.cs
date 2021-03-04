@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Vjezba.Model
+namespace WebShop.Model
 {
     public class Tag
     {

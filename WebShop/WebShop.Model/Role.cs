@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Vjezba.Model
+namespace WebShop.Model
 {
     public class Role
     {

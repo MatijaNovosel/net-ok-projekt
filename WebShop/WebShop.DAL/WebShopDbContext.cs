@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using Vjezba.Model;
+using WebShop.Model;
 
 namespace Vjezba.DAL
 {

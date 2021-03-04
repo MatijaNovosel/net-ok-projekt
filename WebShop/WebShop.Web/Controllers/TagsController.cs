@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vjezba.DAL;
-using Vjezba.Model;
+using WebShop.Model;
 
 namespace WebShop.Web.Views
 {

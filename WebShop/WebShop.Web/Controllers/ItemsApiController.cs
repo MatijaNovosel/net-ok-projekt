@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vjezba.DAL;
-using Vjezba.Model;
+using WebShop.Model;
 using WebShop.Web.Models.DTO;
 
 namespace WebShop.Web.Controllers

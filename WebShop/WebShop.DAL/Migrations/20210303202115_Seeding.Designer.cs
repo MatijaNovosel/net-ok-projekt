@@ -66,7 +66,7 @@ namespace WebShop.DAL.Migrations
                     b.ToTable("RoleUser");
                 });
 
-            modelBuilder.Entity("Vjezba.Model.Item", b =>
+            modelBuilder.Entity("WebShop.Model.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,7 +160,7 @@ namespace WebShop.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Vjezba.Model.ProofOfPurchase", b =>
+            modelBuilder.Entity("WebShop.Model.ProofOfPurchase", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,7 +181,7 @@ namespace WebShop.DAL.Migrations
                     b.ToTable("ProofOfPurchase");
                 });
 
-            modelBuilder.Entity("Vjezba.Model.Role", b =>
+            modelBuilder.Entity("WebShop.Model.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,7 +196,7 @@ namespace WebShop.DAL.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Vjezba.Model.Tag", b =>
+            modelBuilder.Entity("WebShop.Model.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,7 +224,7 @@ namespace WebShop.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Vjezba.Model.User", b =>
+            modelBuilder.Entity("WebShop.Model.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,13 +244,13 @@ namespace WebShop.DAL.Migrations
 
             modelBuilder.Entity("ItemProofOfPurchase", b =>
                 {
-                    b.HasOne("Vjezba.Model.Item", null)
+                    b.HasOne("WebShop.Model.Item", null)
                         .WithMany()
                         .HasForeignKey("ItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vjezba.Model.ProofOfPurchase", null)
+                    b.HasOne("WebShop.Model.ProofOfPurchase", null)
                         .WithMany()
                         .HasForeignKey("ProofsOfPurchaseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -259,13 +259,13 @@ namespace WebShop.DAL.Migrations
 
             modelBuilder.Entity("ItemTag", b =>
                 {
-                    b.HasOne("Vjezba.Model.Item", null)
+                    b.HasOne("WebShop.Model.Item", null)
                         .WithMany()
                         .HasForeignKey("ItemsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vjezba.Model.Tag", null)
+                    b.HasOne("WebShop.Model.Tag", null)
                         .WithMany()
                         .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -274,22 +274,22 @@ namespace WebShop.DAL.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("Vjezba.Model.Role", null)
+                    b.HasOne("WebShop.Model.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Vjezba.Model.User", null)
+                    b.HasOne("WebShop.Model.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Vjezba.Model.ProofOfPurchase", b =>
+            modelBuilder.Entity("WebShop.Model.ProofOfPurchase", b =>
                 {
-                    b.HasOne("Vjezba.Model.User", "User")
+                    b.HasOne("WebShop.Model.User", "User")
                         .WithMany("ProofsOfPurchase")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -298,7 +298,7 @@ namespace WebShop.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Vjezba.Model.User", b =>
+            modelBuilder.Entity("WebShop.Model.User", b =>
                 {
                     b.Navigation("ProofsOfPurchase");
                 });

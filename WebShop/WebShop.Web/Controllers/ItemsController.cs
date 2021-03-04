@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Vjezba.DAL;
-using Vjezba.Model;
+using WebShop.Model;
 using WebShop.Web.ViewModels;
 
 namespace WebShop.Web.Controllers
@@ -28,6 +28,7 @@ namespace WebShop.Web.Controllers
         public async Task<IActionResult> Grid()
         {
             ItemsGridViewModel vm = new ItemsGridViewModel();
+            vm.TagSelect = _context.Tags.Select(x => new SelectListItem { Selected = false, Text = x.Description, Value = x.Id.ToString() }).ToList();
             vm.Items = await _context.Items.Include(x => x.Tags).ToListAsync();
             return View(vm);
         }

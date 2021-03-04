@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container mt-2">
+    <h4>Edit item</h4>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <form asp-controller="Items" asp-action="Edit">
+                <partial name="_EditOrCreateItemForm" />
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

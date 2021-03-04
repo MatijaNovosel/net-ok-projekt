@@ -1,0 +1,41 @@
+﻿@model WebShop.Web.ViewModels.CreateItemViewModel
+
+<input hidden asp-for="Item.Id" />
+<div class="form-group">
+    <label asp-for="Item.Name" class="control-label"></label>
+    <input asp-for="Item.Name" class="form-control" />
+    <span asp-validation-for="Item.Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Item.Description" class="control-label"></label>
+    <input asp-for="Item.Description" class="form-control" />
+    <span asp-validation-for="Item.Description" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Item.Price" class="control-label"></label>
+    <input asp-for="Item.Price" class="form-control" />
+    <span asp-validation-for="Item.Price" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Item.Discount" class="control-label"></label>
+    <input asp-for="Item.Discount" class="form-control" />
+    <span asp-validation-for="Item.Discount" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Item.TagIds" class="control-label"></label>
+    <select multiple asp-for="Item.TagIds" asp-items="@Model.TagSelect" class="form-control"></select>
+    <span asp-validation-for="Item.TagIds" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label class="control-label">Made at</label>
+    <div class="input-group date" data-provide="datepicker" data-date-format="@System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()">
+        <input asp-for="Item.MadeAt" type="text" class="form-control">
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+        </div>
+    </div>
+    <span asp-validation-for="Item.MadeAt" class="text-danger"></span>
+</div>
+<div class="form-group text-right">
+    <input type="submit" value="Save" class="btn btn-primary" />
+</div>

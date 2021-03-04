@@ -30,7 +30,7 @@ namespace WebShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WebShopDbContext")));
-            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<WebShopDbContext>();
+            services.AddDefaultIdentity<AppUser>().AddEntityFrameworkStores<WebShopDbContext>();
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -48,9 +48,13 @@ namespace WebShop
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             var supportedCultures = new[] { 

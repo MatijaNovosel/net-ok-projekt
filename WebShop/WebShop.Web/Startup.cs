@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Vjezba.DAL;
+using WebShop.Model;
 
 namespace WebShop
 {
@@ -28,7 +30,7 @@ namespace WebShop
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<WebShopDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WebShopDbContext")));
-            services.AddControllersWithViews();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<WebShopDbContext>();
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

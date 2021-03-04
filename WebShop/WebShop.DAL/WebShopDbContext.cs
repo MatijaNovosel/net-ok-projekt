@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using WebShop.Model;
 
 namespace Vjezba.DAL
 {
-    public class WebShopDbContext : DbContext
+    public class WebShopDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Item> Items { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
         protected WebShopDbContext() { }
         public WebShopDbContext(DbContextOptions options) : base(options) { }
 

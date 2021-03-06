@@ -19,7 +19,7 @@ namespace Xamarin
 
         public async Task<List<Product>> GetProducts()
         {
-            Uri uri = new Uri(string.Format("https://webshopauth20210304235128.azurewebsites.net/api/items", string.Empty));
+            Uri uri = new Uri("https://webshopauth20210304235128.azurewebsites.net/api/items");
             HttpResponseMessage response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {

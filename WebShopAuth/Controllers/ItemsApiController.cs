@@ -38,7 +38,7 @@ namespace WebShop.Web.Controllers
                 Tags = x.Tags.Select(x => new TagDto() { Description = x.Description, Id = x.Id }).ToList()
             })
             .Where(x =>
-                (Name == null || x.Name.ToLower().StartsWith(Name.ToLower()))
+                (Name == null || x.Name.ToLower().Contains(Name.ToLower()))
             )
             .ToListAsync();
         }

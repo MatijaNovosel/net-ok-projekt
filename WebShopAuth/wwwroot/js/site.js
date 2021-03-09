@@ -49,6 +49,20 @@ const deleteItem = (id) => {
     });
 }
 
+const deleteTag = (id) => {
+    $.ajax({
+        url: "/Tags/Delete",
+        type: "POST",
+        data: {
+            id
+        }
+    }).done(() => {
+        alert("Uspješno izbrisano!");
+    }).fail(() => {
+        alert("Došlo je do greške!");
+    });
+};
+
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.

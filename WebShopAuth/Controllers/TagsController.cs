@@ -94,7 +94,6 @@ namespace WebShop.Web.Views
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var tag = await _context.Tags.FindAsync(id);

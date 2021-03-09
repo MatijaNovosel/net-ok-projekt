@@ -27,7 +27,7 @@
                     </td>
                     <td>
                         <a class='btn btn-outline-primary' asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a class='btn btn-outline-danger ml-2' asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <button onclick="deleteTag(@item.Id)" type="button" class='btn btn-outline-danger'>Delete</button>
                     </td>
                 </tr>
             }

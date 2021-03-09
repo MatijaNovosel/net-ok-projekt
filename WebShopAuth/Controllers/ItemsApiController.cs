@@ -80,6 +80,7 @@ namespace WebShop.Web.Controllers
             return item;
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> PutItem(UpdateItemDto item)
         {
@@ -103,6 +104,7 @@ namespace WebShop.Web.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem(CreateItemDto item)
         {
@@ -129,6 +131,7 @@ namespace WebShop.Web.Controllers
             return CreatedAtAction("GetItem", new { id = newItem.Id }, newItem);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id)
         {
